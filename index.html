@@ -7,6 +7,9 @@
 </head>
 <body>
     <script>
+    // Generate random number between 0 and 1 (exclusive)
+    // the number will determine the Computer's choice of rock/paper/scissors
+    // 33% chance
     function getComputerChoice()
     {
         const random = Math.random();
@@ -24,7 +27,9 @@
         }
     }
 
-    function getplayerChoice()
+    // Player enters their choice of rock/paper/scissors into prompt
+    // input is case insensitive
+    function getPlayerChoice()
     {
         const choice = prompt("Enter your choice: ");
         if (choice.toLowerCase() === "rock") {
@@ -37,59 +42,55 @@
             return "scissors";
         }
         else {
-            return "invalid choice";
+            console.log("invalid choice... try again");
+            return getPlayerChoice();
         }
     }
 
+    // customizable number of rounds
+    // tracks player and computer score
     function playGame(numberOfRounds) {
 
         let playerScore = 0;
         let computerScore = 0;
 
+        // determines round outcome
+        // if tied, play again
         function playRound(computerChoice, playerChoice) {
+                console.log(`PLAYER CHOICE "${playerChoice}" vs. COMPUTER CHOICE "${computerChoice}"`);
                 if (computerChoice === playerChoice) {
-                    console.log("tie");
+                    console.log("tie... continue round\n");
+                    playRound(getComputerChoice(), getPlayerChoice());
                 }
                 else if ((computerChoice === "paper" && playerChoice === "rock") ||
                 (computerChoice === "rock" && playerChoice === "scissors") ||
                 (computerChoice === "scissors" && playerChoice === "paper")) {
                     computerScore++;
-                    console.log("computer wins");
+                    console.log("---computer wins---");
                 }
                 else {
                     playerScore++;
-                    console.log("player wins");
-                    console.log("player score is NOW: " + playerScore);
-
+                    console.log("---player wins---");
                 }
             }
 
-        for (let i = 0; i < numberOfRounds; i++) {
-            playRound(getComputerChoice(), getplayerChoice())
-            // console.log("runs");
-            console.log(playerScore);
-            console.log(computerScore);
+        // for loop to run number of rounds based on argument 
+        //     specification in fucntion call
+        for (let i = 1; i < numberOfRounds + 1; i++) {
+            console.log("Round: " + i);
+            playRound(getComputerChoice(), getPlayerChoice());
+            console.log("Player score: " + playerScore);
+            console.log("Computer score: " + computerScore + "\n ");
         }
 
-        console.log("player score is " + playerScore);
-        console.log("computer score is " + computerScore);
-
-        if (playerScore > computerScore) {
-            // console.log("PLAYER WINS!!!")
-            return "PLAYER WINS!";
-        }
-        else if (computerScore > playerScore) {
-            // console.log("COMPUTER WINS!!!")
-            return "COMPUTER WINS!";        }
-        else {return "tie";}
+        // OUTCOME / winner determined after numberOfRounds is reached
+        console.log("End of Game");
+        (playerScore > computerScore) ? console.log("PLAYER WINS! CONGRATS!") :
+        console.log("COMPUTER WINS! YOU SUCK!");
     }
     
     playGame(5);
 
-
-    // console.log(playRound(getComputerChoice(), getplayerChoice()));
-    // console.log(playerScore);
-    // console.log(computerScore);
     </script>
 </body>
 </html>
