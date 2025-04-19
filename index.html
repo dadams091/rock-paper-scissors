@@ -33,6 +33,7 @@
 
     let computerScore = 0;
     let playerScore = 0; 
+    let round = 1;
 
 
     // Generate random number between 0 and 1 (exclusive)
@@ -56,82 +57,32 @@
     }
 
     function playRound(computerChoice, playerChoice) {
-                results.innerHTML += `PLAYER CHOICE "${playerChoice}" vs. COMPUTER CHOICE "${computerChoice}<br>"`;
-                if (computerChoice === playerChoice) {
-                    results.innerHTML += "tie... continue round<br>";
-                }
-                else if ((computerChoice === "paper" && playerChoice === "rock") ||
-                (computerChoice === "rock" && playerChoice === "scissors") ||
-                (computerChoice === "scissors" && playerChoice === "paper")) {
-                    computerScore++;
-                    results.innerHTML += "---computer wins---<br>";
-                }
-                else {
-                    playerScore++;
-                    results.innerHTML += "---player wins---<br>";
-                }
+        if (playerScore < 5 && computerScore < 5) {
+            results.innerHTML += `ROUND ${round}<br>`;       
+            results.innerHTML += `PLAYER CHOICE "${playerChoice}" vs. COMPUTER CHOICE "${computerChoice}<br>"`;
+            if (computerChoice === playerChoice) {
+                results.innerHTML += "tie... continue round<br>";
+            }
+            else if ((computerChoice === "paper" && playerChoice === "rock") ||
+            (computerChoice === "rock" && playerChoice === "scissors") ||
+            (computerChoice === "scissors" && playerChoice === "paper")) {
+                computerScore++;
+                results.innerHTML += "---computer wins---<br>";
+                round++;
+            }
+            else {
+                playerScore++;
+                results.innerHTML += "---player wins---<br>";
+                round++;
             }
 
-    // tracks player and computer score
-    // function playGame() {
+            results.innerHTML += `Current Score: Player score: "${playerScore}". Computer Score: "${computerScore}" <br><br>`;
 
-    //     let playerScore = 0;
-    //     let computerScore = 0;
-
-    //     // determines round outcome
-    //     // if tied, play again
-    //     function playRound(computerChoice, playerChoice) {
-    //             results.textContent = `PLAYER CHOICE "${playerChoice}" vs. COMPUTER CHOICE "${computerChoice}"`;
-    //             if (computerChoice === playerChoice) {
-    //                 console.log("tie... continue round\n");
-    //                 playRound(getComputerChoice(), getPlayerChoice());
-    //             }
-    //             else if ((computerChoice === "paper" && playerChoice === "rock") ||
-    //             (computerChoice === "rock" && playerChoice === "scissors") ||
-    //             (computerChoice === "scissors" && playerChoice === "paper")) {
-    //                 computerScore++;
-    //                 console.log("---computer wins---");
-    //             }
-    //             else {
-    //                 playerScore++;
-    //                 console.log("---player wins---");
-    //             }
-    //         }
-
-    //     // for loop to run number of rounds based on argument 
-    //     //     specification in fucntion call
-    //     for (let i = 1; ; i++) {
-    //         console.log("Round: " + i);
-    //         playRound(getComputerChoice(), getPlayerChoice());
-    //         console.log("Player score: " + playerScore);
-    //         console.log("Computer score: " + computerScore + "\n ");
-    //     }
-
-    //     console.log("End of Game");
-    //     (playerScore > computerScore) ? console.log("PLAYER WINS! CONGRATS!") :
-    //     console.log("COMPUTER WINS! YOU SUCK!");
-    // }
-    
-    //playGame();
-    // Player enters their choice of rock/paper/scissors into prompt     
-// input is case insensitive
-// function getPlayerChoice()
-// {
-//     const choice = prompt("Enter your choice: ");
-//     if (choice.toLowerCase() === "rock") {
-//         return "rock";
-//     }
-//     else if (choice.toLowerCase() === "paper") {
-//         return "paper";
-//     }
-//     else if (choice.toLowerCase() === "scissors") {
-//         return "scissors";
-//     }
-//     else {
-//         console.log("invalid choice... try again");
-//         return getPlayerChoice();
-//     }
-// }
+            if (playerScore === 5 || computerScore === 5) {
+                results.innerHTML += "GAME OVER<br>";
+            }
+        }
+    }
 
     </script>
 
